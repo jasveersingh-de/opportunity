@@ -1,3 +1,11 @@
+---
+title: Product Roadmap - Opportunity.ai
+type: roadmap
+status: active
+tags: [roadmap, poc, mvp, full-product]
+last-updated: 2024-01-15
+---
+
 # Opportunity.ai Product Roadmap
 
 ## Overview

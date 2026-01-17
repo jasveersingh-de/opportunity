@@ -1,3 +1,12 @@
+---
+title: Feature Plan - Tailored Application Materials
+type: feature-plan
+status: ready
+phase: poc
+tags: [cv-generation, cover-letter, outreach-generator, ai]
+last-updated: 2024-01-15
+---
+
 # Feature: Tailored Application Materials
 
 ## Vision Alignment

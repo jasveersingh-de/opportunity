@@ -1,3 +1,12 @@
+---
+title: Feature Plan - AI-Powered Job Discovery
+type: feature-plan
+status: ready
+phase: poc
+tags: [job-discovery, ai, ranking, ingestion]
+last-updated: 2024-01-15
+---
+
 # Feature: AI-Powered Job Discovery
 
 ## Vision Alignment

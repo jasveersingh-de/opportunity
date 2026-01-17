@@ -1,3 +1,12 @@
+---
+title: Project Plan - Opportunity.ai MVP
+type: master-plan
+status: active
+phase: mvp
+tags: [mvp, execution-plan, milestones]
+last-updated: 2024-01-15
+---
+
 # Project Plan: Opportunity.ai MVP
 
 Incremental execution plan to build the MVP, organized into testable milestones with POC/MVP distinctions.
