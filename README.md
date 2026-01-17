@@ -204,7 +204,6 @@ See [.cursor/rules/09-git-workflow.md](.cursor/rules/09-git-workflow.md) for det
 ### Core Documentation
 
 - **Vision**: See [VISION.md](VISION.md) for product vision and goals
-- **Tech Spec**: See [TECH-SPEC.md](TECH-SPEC.md) for detailed technical design
 - **Cursor Rules**: See [.cursor/rules/](.cursor/rules/) for development conventions
 - **Subagents**: See [AGENTS.md](AGENTS.md) for agent responsibilities
 
@@ -238,9 +237,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Production Status
 
 **Current Phase:** Foundation Setup  
-**Production Ready:** ⚠️ Not yet - See [PRODUCTION-READINESS.md](PRODUCTION-READINESS.md) for detailed status
+**Production Ready:** ⚠️ Not yet - Application code implementation is in progress.
 
-This repository contains the foundation, documentation, and planning for Opportunity.ai. Application code implementation is the next phase.
+This repository contains the foundation, documentation, and planning for Opportunity.ai.
 
 ---
 

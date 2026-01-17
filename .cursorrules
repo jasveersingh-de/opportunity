@@ -92,7 +92,7 @@ Reference this file in prompts:
 
 ## Related Documentation
 
-- **Full Rules:** [.cursor/rules/](.cursor/rules/) - All 15 rule files
+- **Full Rules:** [.cursor/rules/](.cursor/rules/) - All 15 rule files (automatically applied)
+- **Rules Index:** [.cursor/rules/README.md](.cursor/rules/README.md) - Rules overview and quick reference
 - **Setup Guide:** [docs/SETUP.md](docs/SETUP.md) - Development setup
-- **Technical Spec:** [TECH-SPEC.md](TECH-SPEC.md) - Technical details
 - **Subagents:** [AGENTS.md](AGENTS.md) - Subagent definitions
