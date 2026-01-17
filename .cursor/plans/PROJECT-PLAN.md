@@ -1,6 +1,17 @@
 # Project Plan: Opportunity.ai MVP
 
-Incremental execution plan to build the MVP, organized into testable milestones.
+Incremental execution plan to build the MVP, organized into testable milestones with POC/MVP distinctions.
+
+## Vision Alignment
+
+This plan implements the core MVP features from the [original Opportunity.ai Vision PDF](file://Opportunity.ai%20Vision.pdf):
+
+- **AI-Powered Job Discovery**: Multi-country job aggregation with AI matching
+- **Tailored Application Materials**: CV, cover letter, and outreach draft generation
+- **Job Application Tracking**: Personal ATS/CRM pipeline tracker
+- **User Control & Privacy**: GDPR compliant, user-controlled data
+
+**Competitive Context:** Unified platform vs. fragmented tools (Teal, AIApply, spreadsheets).
 
 ## Current Status
 
@@ -9,9 +20,15 @@ Incremental execution plan to build the MVP, organized into testable milestones.
 - ✅ Documentation: VISION, TECH-SPEC, SETUP guide
 - ✅ Security: RLS policies, security rules
 - ✅ CI/CD: GitHub Actions workflow
-- ✅ Project planning: UI prototype plan, plan organization
+- ✅ Project planning: Restructured plans folder with POC/MVP/milestones
 
 **Next:** Phase 1 - UI Prototype (Weeks 1-6)
+
+**See detailed plans:**
+- [Product Roadmap](roadmap/PRODUCT-ROADMAP.md) - Overall product roadmap
+- [MVP Roadmap](roadmap/MVP-ROADMAP.md) - MVP-specific roadmap
+- [Feature Plans](features/) - Feature-specific plans with POC/MVP
+- [Implementation Plans](implementation/) - Step-by-step implementation guides
 
 ## Development Approach: UI-First
 
@@ -30,7 +47,10 @@ This project follows a **UI-first development approach**:
 
 **See detailed plans:**
 - [PLAN-INDEX.md](PLAN-INDEX.md) - Index of all plans
-- [ui-prototype-plan.md](ui-prototype-plan.md) - UI prototype detailed plan
+- [roadmap/PRODUCT-ROADMAP.md](roadmap/PRODUCT-ROADMAP.md) - Product roadmap
+- [roadmap/MVP-ROADMAP.md](roadmap/MVP-ROADMAP.md) - MVP roadmap
+- [features/](features/) - Feature plans with POC/MVP/milestones
+- [implementation/ui-prototype.md](implementation/ui-prototype.md) - UI prototype implementation
 
 ---
 
@@ -38,7 +58,9 @@ This project follows a **UI-first development approach**:
 
 **Goal:** Build complete UI prototype with clean architecture, mock data, and all MVP features
 
-**Detailed Plan:** See [ui-prototype-plan.md](ui-prototype-plan.md)
+**Detailed Plan:** See [implementation/ui-prototype.md](implementation/ui-prototype.md)
+
+**Feature Plans:** See [features/](features/) for POC/MVP breakdown of each feature
 
 **Approach:** Build UI components first with mock services, then add service layer progressively. No backend integration yet.
 
