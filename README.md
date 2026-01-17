@@ -227,7 +227,14 @@ See [.cursor/rules/13-supabase-security.md](.cursor/rules/13-supabase-security.m
 
 ## License
 
-[Specify your license here]
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Production Status
+
+**Current Phase:** Foundation Setup  
+**Production Ready:** ⚠️ Not yet - See [PRODUCTION-READINESS.md](PRODUCTION-READINESS.md) for detailed status
+
+This repository contains the foundation, documentation, and planning for Opportunity.ai. Application code implementation is the next phase.
 
 ---
 
