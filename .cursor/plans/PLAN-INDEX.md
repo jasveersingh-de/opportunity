@@ -1,3 +1,10 @@
+---
+title: Plan Index
+type: index
+status: active
+last-updated: 2024-01-15
+---
+
 # Plan Index
 
 Quick reference to all project plans organized by category.
