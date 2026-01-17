@@ -1,3 +1,12 @@
+---
+title: ADR-002 - Clean Architecture with Progressive Enhancement
+type: adr
+status: accepted
+date: 2024-01-15
+tags: [architecture, clean-architecture, progressive-enhancement]
+related: [ADR-001]
+---
+
 # ADR-002: Clean Architecture with Progressive Enhancement
 
 **Status:** Accepted  

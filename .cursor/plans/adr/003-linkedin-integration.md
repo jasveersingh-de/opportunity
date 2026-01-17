@@ -1,3 +1,12 @@
+---
+title: ADR-003 - LinkedIn Integration Strategy
+type: adr
+status: accepted
+date: 2024-01-15
+tags: [integration, linkedin, oauth, compliance]
+related: [features/01-job-discovery.md]
+---
+
 # ADR-003: LinkedIn Integration Strategy
 
 **Status:** Accepted  

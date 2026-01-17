@@ -1,3 +1,12 @@
+---
+title: ADR-001 - UI-First Development Approach
+type: adr
+status: accepted
+date: 2024-01-15
+tags: [architecture, ui-first, development-approach]
+related: [ADR-002, PROJECT-PLAN.md]
+---
+
 # ADR-001: UI-First Development Approach
 
 **Status:** Accepted  
