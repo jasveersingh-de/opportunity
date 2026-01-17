@@ -1,12 +1,21 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { getSupabaseServerClient } from "@/lib/db/server-client";
+import { redirect } from "next/navigation";
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const supabase = await getSupabaseServerClient();
+  const { data: { user }, error } = await supabase.auth.getUser();
+
+  if (error || !user) {
+    redirect('/login');
+  }
+
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-bold">Dashboard</h1>
         <p className="text-muted-foreground">
-          Welcome to your job search dashboard
+          Welcome back, {user.user_metadata?.full_name || user.user_metadata?.name || user.email}!
         </p>
       </div>
 

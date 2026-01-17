@@ -1,27 +1,41 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AuthLayout } from "@/components/layout/AuthLayout";
-import { mockAuthService } from "@/lib/services/auth/mock-auth.service";
-import { useRouter } from "next/navigation";
+import { authService } from "@/lib/services/auth/auth.service";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const handleLogin = async () => {
+  // Check for error in URL params (from OAuth callback)
+  useEffect(() => {
+    const errorParam = searchParams.get('error');
+    if (errorParam) {
+      setError(decodeURIComponent(errorParam));
+    }
+  }, [searchParams]);
+
+  const handleLinkedInLogin = async () => {
     setIsLoading(true);
     setError(null);
 
     try {
-      await mockAuthService.login();
-      router.push("/dashboard");
+      const { error } = await authService.signInWithLinkedIn();
+      
+      if (error) {
+        setError(error.message || "Failed to initiate LinkedIn login");
+        setIsLoading(false);
+      }
+      // If successful, user will be redirected to LinkedIn OAuth
+      // Then redirected back to /auth/callback
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to sign in");
-    } finally {
       setIsLoading(false);
     }
   };
@@ -42,7 +56,7 @@ export default function LoginPage() {
             </div>
           )}
           <Button
-            onClick={handleLogin}
+            onClick={handleLinkedInLogin}
             disabled={isLoading}
             className="w-full"
             size="lg"
@@ -50,18 +64,18 @@ export default function LoginPage() {
             {isLoading ? (
               <>
                 <span className="animate-spin">⏳</span>
-                Signing in...
+                Redirecting to LinkedIn...
               </>
             ) : (
               <>
                 <span>🔗</span>
-                Sign in with LinkedIn (Mock)
+                Sign in with LinkedIn
               </>
             )}
           </Button>
           <p className="text-xs text-center text-muted-foreground">
-            Note: This is a mock authentication for the UI prototype.
-            Real LinkedIn OAuth will be implemented in Phase 2.
+            By signing in, you agree to our Terms of Service and Privacy Policy.
+            We use LinkedIn OAuth for secure authentication.
           </p>
         </CardContent>
       </Card>
