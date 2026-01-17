@@ -1,0 +1,56 @@
+# Cursor Ignore File
+# Files and directories to exclude from Cursor context
+
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+.next/
+out/
+dist/
+build/
+*.tsbuildinfo
+
+# Environment files
+.env
+.env*.local
+.env.production
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Testing
+coverage/
+.nyc_output/
+
+# Misc
+.DS_Store
+*.pem
+.vscode/
+.idea/
+
+# Supabase
+.supabase/
+
+# Generated files
+lib/db/types.ts  # Generated from Supabase schema
+
+# Archive
+.cursor/plans/archive/
+
+# Large files
+*.pdf
+*.zip
+*.tar.gz
+
+# Temporary files
+*.tmp
+*.temp
+.cache/

@@ -1,0 +1,98 @@
+# Opportunity.ai - Cursor Rules
+
+## Quick Reference
+
+This file provides quick access to key project information for Cursor AI.
+
+## Project Vision
+
+Opportunity.ai is an AI-assisted job search and application management platform that helps tech professionals discover jobs, tailor applications, and track their pipeline across multiple countries.
+
+**Core Features:**
+- AI-Powered Job Discovery with ranking
+- Tailored Application Materials (CV, cover letter, outreach)
+- Job Application Pipeline Tracking
+- Personalized Insights & Skill Guidance
+- User Control & Privacy (GDPR compliant)
+
+**See:** [VISION.md](VISION.md) for full vision
+
+## Key Rules Reference
+
+**Agent Operating System:** [.cursor/rules/00-operating-system.md](.cursor/rules/00-operating-system.md)
+- Always follow work loop: clarify → plan → implement → verify → summarize
+- Run checks: `pnpm typecheck && pnpm lint && pnpm test`
+- Make incremental commits
+
+**Product Scope:** [.cursor/rules/01-product-scope.md](.cursor/rules/01-product-scope.md)
+- ✅ Allowed: Manual entry, CSV/JSON upload, official APIs
+- ❌ Prohibited: LinkedIn scraping, auto-apply bots, bypassing protections
+
+**Architecture:** [.cursor/rules/02-architecture.md](.cursor/rules/02-architecture.md)
+- Next.js App Router with Server Components
+- Service layer in `lib/services/`
+- Data access in `lib/db/queries/`
+- AI calls server-side only
+
+**Coding Standards:** [.cursor/rules/03-coding-standards.md](.cursor/rules/03-coding-standards.md)
+- TypeScript strict mode
+- Zod for runtime validation
+- Small functions, clear names
+- JSDoc for non-trivial functions
+
+## Subagents
+
+See [AGENTS.md](AGENTS.md) for subagent definitions:
+- test-runner: Runs checks and fixes issues
+- refactor-scout: Identifies simple refactors
+- security-sentinel: Checks for security violations
+- type-enforcer: Ensures TypeScript compliance
+- migration-manager: Manages database migrations
+- prompt-versioner: Versions AI prompts
+
+## Plans & Roadmap
+
+**Master Plan:** [.cursor/plans/PROJECT-PLAN.md](.cursor/plans/PROJECT-PLAN.md)
+**MVP Roadmap:** [.cursor/plans/roadmap/MVP-ROADMAP.md](.cursor/plans/roadmap/MVP-ROADMAP.md)
+**Plan Index:** [.cursor/plans/PLAN-INDEX.md](.cursor/plans/PLAN-INDEX.md)
+
+**Current Phase:** UI Prototype (Phase 1)
+**Next:** Foundation UI - Design system and layout
+
+## Tech Stack
+
+- **Frontend:** Next.js 16, React Server Components, TypeScript, Tailwind CSS
+- **Backend:** Next.js Route Handlers + Server Actions
+- **Database:** Supabase (PostgreSQL) with RLS
+- **AI:** OpenAI API (server-side only)
+- **Tool Management:** mise (polyglot tool version manager)
+
+## Quick Commands
+
+```bash
+# Development
+pnpm dev              # Start dev server
+pnpm build            # Production build
+pnpm typecheck        # Type checking
+pnpm lint             # Linting
+pnpm test             # Tests
+
+# Database
+pnpm supabase start   # Start local Supabase
+pnpm supabase db reset # Reset database
+```
+
+## Using This File
+
+Reference this file in prompts:
+- `@.cursorrules` - Include this file in context
+- `@VISION.md` - Include vision document
+- `@.cursor/rules/00-operating-system.md` - Include agent OS rules
+- `@.cursor/plans/PROJECT-PLAN.md` - Include master plan
+
+## Related Documentation
+
+- **Full Rules:** [.cursor/rules/](.cursor/rules/) - All 15 rule files
+- **Setup Guide:** [docs/SETUP.md](docs/SETUP.md) - Development setup
+- **Technical Spec:** [TECH-SPEC.md](TECH-SPEC.md) - Technical details
+- **Subagents:** [AGENTS.md](AGENTS.md) - Subagent definitions
