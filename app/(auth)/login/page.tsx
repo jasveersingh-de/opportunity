@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AuthLayout } from "@/components/layout/AuthLayout";
 import { authService } from "@/lib/services/auth/auth.service";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function LoginPage() {
+function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
@@ -80,5 +80,29 @@ export default function LoginPage() {
         </CardContent>
       </Card>
     </AuthLayout>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <AuthLayout>
+        <Card>
+          <CardHeader>
+            <CardTitle>Sign in to Opportunity.ai</CardTitle>
+            <CardDescription>
+              Connect with LinkedIn to get started with your job search journey
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex items-center justify-center p-8">
+              <span className="animate-spin">⏳</span>
+            </div>
+          </CardContent>
+        </Card>
+      </AuthLayout>
+    }>
+      <LoginForm />
+    </Suspense>
   );
 }
