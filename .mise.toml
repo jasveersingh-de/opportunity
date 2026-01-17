@@ -3,14 +3,12 @@
 # It automatically manages tool versions when you enter this project directory
 
 [tools]
-# Node.js LTS version
-node = "lts"
+# Node.js version (LTS)
+node = "20.18.0"
 # pnpm package manager
-pnpm = "latest"
-
-# Optional: You can pin specific versions if needed
-# node = "20.18.0"
-# pnpm = "9.15.0"
+pnpm = "9.15.0"
+# Supabase CLI (optional, can also install via npm)
+# supabase = "1.234.0"
 
 [env]
 # mise can also manage environment variables per project
