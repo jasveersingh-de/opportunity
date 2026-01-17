@@ -145,28 +145,26 @@ fix: correct RLS policy for jobs table
 
 ### PR Description Template
 
-```markdown
-## What Changed
-- Brief description of changes
+**GitHub PR templates are available** in `.github/pull_request_template.md` and `.github/PULL_REQUEST_TEMPLATE/`:
 
-## Why
-- Explanation of why this change was needed
+- **Default template**: `.github/pull_request_template.md` - Use for most PRs
+- **Feature PRs**: `.github/PULL_REQUEST_TEMPLATE/feature.md` - For new features
+- **Bug fixes**: `.github/PULL_REQUEST_TEMPLATE/bugfix.md` - For bug fixes
+- **Database changes**: `.github/PULL_REQUEST_TEMPLATE/database.md` - For migrations/schema changes
+- **Documentation**: `.github/PULL_REQUEST_TEMPLATE/documentation.md` - For docs-only changes
 
-## How to Test
-1. Step 1
-2. Step 2
-3. Step 3
+**When creating a PR**, GitHub will automatically populate the template. Select the appropriate template when creating the PR, or use the default template.
 
-## Screenshots (if UI changes)
-[Add screenshots here]
+**All PR templates include:**
+- Description section (What Changed, Why)
+- Testing instructions
+- Comprehensive checklist (code quality, security, verification)
+- Type-specific sections (e.g., migration details for database PRs)
 
-## Checklist
-- [ ] Code follows coding standards
-- [ ] Tests added/updated
-- [ ] Documentation updated
-- [ ] No secrets committed
-- [ ] Lint and typecheck pass
-```
+**Minimum PR description should include:**
+- What changed and why
+- How to test
+- Checklist items verified
 
 ### PR Review Checklist
 

@@ -61,8 +61,8 @@ brew install mise
 ### 2. Clone the Repository
 
 ```bash
-git clone https://github.com/YourUsername/opportunity.ai.git
-cd opportunity.ai
+git clone https://github.com/jasveersingh-de/opportunity.git
+cd opportunity
 ```
 
 ### 3. Tool Version Setup
@@ -179,7 +179,13 @@ We welcome contributions! Please:
 1. Read the [Vision document](VISION.md) to understand product goals
 2. Check [.cursor/rules/](.cursor/rules/) for coding standards and conventions
 3. Follow the git workflow in [.cursor/rules/09-git-workflow.md](.cursor/rules/09-git-workflow.md)
-4. Ensure all checks pass before submitting PRs
+4. Use the appropriate PR template when creating pull requests:
+   - Default: `.github/pull_request_template.md`
+   - Feature: `.github/PULL_REQUEST_TEMPLATE/feature.md`
+   - Bug fix: `.github/PULL_REQUEST_TEMPLATE/bugfix.md`
+   - Database: `.github/PULL_REQUEST_TEMPLATE/database.md`
+   - Documentation: `.github/PULL_REQUEST_TEMPLATE/documentation.md`
+5. Ensure all checks pass before submitting PRs
 
 ### Commit Message Format
 
