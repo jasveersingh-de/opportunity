@@ -31,8 +31,9 @@ This roadmap focuses specifically on the MVP phase, detailing what needs to be b
 3. **Application Materials** (MVP)
    - CV generation (tailored to job)
    - Cover letter generation
-   - Outreach draft generator (email/LinkedIn)
+   - **Outreach Draft Generator** (email/LinkedIn messages) - Key feature from original vision
    - Preview and approve workflow
+   - Version management
    - Download (PDF/Markdown)
 
 4. **Pipeline Tracking** (MVP)
