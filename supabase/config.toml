@@ -1,0 +1,72 @@
+# Supabase CLI Configuration
+# See: https://supabase.com/docs/reference/cli/config
+
+[project]
+# Project ID (for linking to remote Supabase project)
+# Leave empty for local development
+# project_id = ""
+
+[auth]
+# Enable email signup
+enable_signup = true
+
+# Email template settings
+[auth.email]
+enable_signup = true
+double_confirm_changes = true
+enable_confirmations = false
+
+# Password settings
+[auth.password]
+min_length = 8
+require_uppercase = true
+require_lowercase = true
+require_numbers = true
+require_symbols = false
+
+# JWT settings
+[auth.jwt]
+exp = 3600  # 1 hour
+aud = "authenticated"
+default_role = "authenticated"
+
+[api]
+# API port (default: 54321)
+port = 54321
+# Schema to expose
+schemas = ["public", "storage", "graphql_public"]
+# Extra search path
+extra_search_path = ["public", "extensions"]
+# Maximum rows returned
+max_rows = 1000
+
+[db]
+# Database port (default: 54322)
+port = 54322
+# Major version (default: 15)
+major_version = 15
+
+[studio]
+# Studio port (default: 54323)
+port = 54323
+# Enable API proxy
+api_url = "http://127.0.0.1:54321"
+
+[inbucket]
+# Inbucket port (default: 54324)
+port = 54324
+# SMTP port
+smtp_port = 54325
+# POP3 port
+pop3_port = 54326
+
+[storage]
+# File size limit (default: 50MiB)
+file_size_limit = "50MiB"
+
+[functions]
+# Verify JWT token
+verify_jwt = true
+
+[analytics]
+enabled = false
