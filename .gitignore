@@ -60,3 +60,6 @@ next-env.d.ts
 
 # mise (tool version manager)
 .mise/
+
+# local git config (if using .gitconfig.local)
+.gitconfig.local
