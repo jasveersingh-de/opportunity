@@ -208,38 +208,155 @@ describe('RLS Policies', () => {
 
 ## Migrations
 
-### Migration Workflow
+### Supabase CLI Setup
 
-**Always create migrations for schema changes:**
+**Install Supabase CLI:**
 
 ```bash
-# Create a new migration
-pnpm supabase migration new add_salary_range_to_jobs
+# Using mise (recommended)
+mise install supabase
 
-# Edit the migration file
-# supabase/migrations/YYYYMMDDHHMMSS_add_salary_range_to_jobs.sql
+# Or using npm
+npm install -g supabase
 
-# Apply migration locally
-pnpm supabase db reset  # Resets and applies all migrations
+# Or using Homebrew (macOS)
+brew install supabase/tap/supabase
+```
+
+**Initialize Supabase project:**
+
+```bash
+# Link to remote project (optional)
+supabase link --project-ref <project-ref>
+
+# Or use local development
+supabase start
+```
+
+### Migration Workflow
+
+**Always create migrations via Supabase CLI** (never manually in dashboard):
+
+```bash
+# 1. Create a new migration
+supabase migration new add_salary_range_to_jobs
+
+# This creates: supabase/migrations/YYYYMMDDHHMMSS_add_salary_range_to_jobs.sql
+
+# 2. Edit the migration file
+# Add your SQL changes
+
+# 3. Test migration locally
+supabase db reset  # Resets and applies all migrations from scratch
 # OR
-pnpm supabase migration up  # Applies pending migrations
+supabase migration up  # Applies only pending migrations
+
+# 4. Verify migration
+supabase db diff  # Shows differences between local and remote (if linked)
+
+# 5. Generate types after schema changes
+supabase gen types typescript --local > lib/db/types.ts
+
+# 6. Commit migration file
+git add supabase/migrations/YYYYMMDDHHMMSS_add_salary_range_to_jobs.sql
+git commit -m "feat: add salary range to jobs table"
 ```
 
 ### Migration File Naming
 
-**Format**: `YYYYMMDDHHMMSS_description.sql`
+**Format**: `YYYYMMDDHHMMSS_description.sql` (Supabase CLI generates this automatically)
 
 Examples:
 - `20240115103000_create_profiles.sql`
 - `20240115104500_add_index_to_jobs.sql`
 - `20240115110000_add_remote_type_to_jobs.sql`
 
+**Naming conventions:**
+- Use descriptive names: `add_column_name_to_table_name`
+- Use snake_case for descriptions
+- Be specific: `add_salary_range_to_jobs` not `update_jobs`
+
+### Environment-Specific Migration Strategies
+
+**Local Development:**
+```bash
+# Start local Supabase
+supabase start
+
+# Apply all migrations
+supabase db reset
+
+# Generate types from local
+supabase gen types typescript --local > lib/db/types.ts
+```
+
+**Staging/Production:**
+```bash
+# Link to remote project
+supabase link --project-ref <staging-project-ref>
+
+# Push migrations to remote
+supabase db push
+
+# Generate types from remote
+supabase gen types typescript --project-id <project-id> > lib/db/types.ts
+```
+
+**Never push migrations directly to production without testing in staging first.**
+
 ### Migration Best Practices
 
-- **Prefer additive changes**: Avoid destructive changes in early PoC
-- **Test migrations**: Run `pnpm supabase db reset` to test from scratch
-- **Version control**: Commit all migration files
-- **Rollback plan**: Document how to rollback if needed
+- **Prefer additive changes**: Avoid destructive changes (DROP, TRUNCATE) in early PoC
+- **Test migrations**: Always run `supabase db reset` locally before committing
+- **Version control**: Commit all migration files (they're the source of truth)
+- **Idempotent migrations**: Write migrations that can be run multiple times safely
+- **One change per migration**: Keep migrations focused and reviewable
+- **Include RLS policies**: Always add RLS policies in the same migration as table creation
+
+### Rollback Procedures
+
+**For local development:**
+```bash
+# Reset to clean state
+supabase db reset
+```
+
+**For remote (if needed):**
+```bash
+# Create a new migration to reverse changes
+supabase migration new revert_salary_range
+
+# In the migration file, add:
+-- Revert salary range columns
+alter table jobs
+  drop column salary_min,
+  drop column salary_max,
+  drop column currency;
+
+drop index if exists idx_jobs_salary_range;
+```
+
+**Best Practice**: Prefer creating a new migration to revert rather than modifying existing migrations (which breaks history).
+
+### Type Generation Automation
+
+**Automate type generation after migrations:**
+
+```bash
+# Add to package.json scripts
+{
+  "scripts": {
+    "db:types": "supabase gen types typescript --local > lib/db/types.ts",
+    "db:types:remote": "supabase gen types typescript --project-id <project-id> > lib/db/types.ts",
+    "db:reset": "supabase db reset && pnpm db:types"
+  }
+}
+```
+
+**CI/CD Integration:**
+- Generate types in CI after migration validation
+- Fail build if types are out of sync
+- See [create_cicd_workflow] for GitHub Actions setup
 
 ### Example Migration
 
@@ -285,17 +402,120 @@ create index idx_jobs_active on jobs(user_id) where status in ('saved', 'applied
 **Generate types from Supabase schema:**
 
 ```bash
-# Generate types from local Supabase
-pnpm supabase gen types typescript --local > lib/db/types.ts
+# Generate types from local Supabase (development)
+supabase gen types typescript --local > lib/db/types.ts
 
-# Generate types from remote Supabase
-pnpm supabase gen types typescript --project-id <project-id> > lib/db/types.ts
+# Generate types from remote Supabase (staging/production)
+supabase gen types typescript --project-id <project-id> > lib/db/types.ts
+
+# Or if linked
+supabase gen types typescript --linked > lib/db/types.ts
 ```
 
-**Keep types in sync**: Regenerate after schema changes.
+**Automation:**
+- Run type generation after every migration
+- Add to pre-commit hook or CI/CD pipeline
+- Verify types are committed and up-to-date
+
+**Type File Location:**
+- Store generated types in `lib/db/types.ts`
+- Commit generated types to version control
+- Regenerate when schema changes
+
+**Keep types in sync**: Regenerate after every schema change.
+
+### Type Usage
+
+**Import and use generated types:**
+
+```typescript
+// lib/db/types.ts (generated)
+export type Database = {
+  public: {
+    Tables: {
+      jobs: {
+        Row: {
+          id: string;
+          user_id: string;
+          title: string;
+          // ...
+        };
+        Insert: { /* ... */ };
+        Update: { /* ... */ };
+      };
+      // ...
+    };
+  };
+};
+
+// Usage in code
+import type { Database } from '@/lib/db/types';
+
+type Job = Database['public']['Tables']['jobs']['Row'];
+type JobInsert = Database['public']['Tables']['jobs']['Insert'];
+```
+
+## Supabase CLI Commands Reference
+
+### Common Commands
+
+```bash
+# Start local Supabase
+supabase start
+
+# Stop local Supabase
+supabase stop
+
+# Reset local database (applies all migrations)
+supabase db reset
+
+# Create new migration
+supabase migration new <description>
+
+# Apply pending migrations
+supabase migration up
+
+# Show migration status
+supabase migration list
+
+# Link to remote project
+supabase link --project-ref <project-ref>
+
+# Push migrations to remote
+supabase db push
+
+# Generate TypeScript types
+supabase gen types typescript --local > lib/db/types.ts
+
+# Show database differences
+supabase db diff
+
+# Access Supabase Studio (local)
+# Opens at http://localhost:54323
+```
+
+### Migration Testing
+
+**Test migrations in isolation:**
+
+```bash
+# Create test migration
+supabase migration new test_feature
+
+# Test locally
+supabase db reset
+
+# Verify schema
+supabase db diff
+
+# If linked, test against remote (staging)
+supabase db push --dry-run  # Preview changes
+```
 
 ## Related Rules
 
 - See [05-security-and-compliance.md](05-security-and-compliance.md) for RLS security requirements
+- See [13-supabase-security.md](13-supabase-security.md) for RLS policy templates
 - See [02-architecture.md](02-architecture.md) for data access layer patterns
 - See [03-coding-standards.md](03-coding-standards.md) for type usage
+- See [docs/supabase-setup.md](docs/supabase-setup.md) for complete Supabase setup guide
