@@ -479,10 +479,12 @@ This project follows a **UI-first development approach**:
 **MVP Complete When:**
 - [ ] User can sign in with LinkedIn
 - [ ] User can add jobs (manual, CSV, JSON)
-- [ ] Jobs are ranked by AI
-- [ ] User can generate CVs and cover letters
-- [ ] User can track application pipeline
-- [ ] User can draft outreach messages
+- [ ] Jobs are ranked by AI (fit score 0-100)
+- [ ] User can generate CVs tailored to jobs
+- [ ] User can generate cover letters tailored to jobs
+- [ ] **Outreach Draft Generator** works (email/LinkedIn messages)
+- [ ] User can track application pipeline (all status stages)
+- [ ] User can view dashboard with stats
 - [ ] All features have error handling
 - [ ] All features have basic tests
 - [ ] Application is deployable
