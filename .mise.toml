@@ -1,0 +1,17 @@
+# mise configuration for Opportunity.ai
+# mise is a polyglot tool version manager (https://mise.jdx.dev)
+# It automatically manages tool versions when you enter this project directory
+
+[tools]
+# Node.js LTS version
+node = "lts"
+# pnpm package manager
+pnpm = "latest"
+
+# Optional: You can pin specific versions if needed
+# node = "20.18.0"
+# pnpm = "9.15.0"
+
+[env]
+# mise can also manage environment variables per project
+# Add any project-specific env vars here if needed
