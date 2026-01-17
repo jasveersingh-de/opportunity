@@ -108,34 +108,105 @@ logInfo({ userId: user.id, action: 'login' });
 
 ## Authentication & Authorization
 
-### Service Keys
+### Service Role Key Safety
 
-**Any admin/service key must stay server-side only:**
+**CRITICAL: Service role key must NEVER be exposed to client** (Supabase security requirement):
 
+**Service Role Key Rules:**
+- **Server-side only**: Use only in API routes, Server Actions, or Edge Functions
+- **Never in client code**: Not in `'use client'` components, not in browser JavaScript
+- **Never in environment variables** prefixed with `NEXT_PUBLIC_*`
+- **Bypasses RLS**: Service role key has admin privileges - use with extreme caution
+- **Audit usage**: Log all operations using service role key
+
+**Correct Usage:**
 ```typescript
 // ✅ GOOD: Server-side only
-// lib/db/admin.ts
-const adminClient = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY! // Never exposed to client
-);
+// lib/db/admin.ts (server-side module)
+import { createClient } from '@supabase/supabase-js';
 
-// ❌ BAD: Exposed to client
-// app/page.tsx
-const client = createClient(url, serviceRoleKey); // Never do this
+export function getSupabaseAdmin() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY! // Server-side only
+  );
+}
+
+// ✅ GOOD: In API route (server-side)
+// app/api/jobs/route.ts
+import { getSupabaseAdmin } from '@/lib/db/admin';
+
+export async function POST(request: NextRequest) {
+  const admin = getSupabaseAdmin(); // Safe - server-side only
+  // ...
+}
 ```
+
+**Incorrect Usage:**
+```typescript
+// ❌ BAD: Exposed to client
+// app/page.tsx (client component)
+'use client';
+const client = createClient(url, serviceRoleKey); // NEVER DO THIS
+
+// ❌ BAD: In NEXT_PUBLIC_ variable
+// NEXT_PUBLIC_SUPABASE_SERVICE_KEY=... // NEVER DO THIS
+```
+
+**Anon Key Safety:**
+- Anon key is safe to expose to browser **only with RLS enabled**
+- RLS policies protect data even if anon key is exposed
+- Always use anon key in client components, never service role key
 
 ### Row Level Security (RLS)
 
-**Enforce RLS if using Supabase tables exposed to clients:**
+**RLS is REQUIRED for all user-owned tables** (Supabase best practice):
 
-- Enable RLS on all user-owned tables
-- Policies: user can read/write own records, nothing else
-- Test RLS policies with different user contexts
+- **Enable RLS on all tables** that contain user data
+- **Policies must be explicit**: Define who can SELECT, INSERT, UPDATE, DELETE
+- **Default deny**: If no policy matches, access is denied
+- **Test RLS policies** with different user contexts in integration tests
+- **Never disable RLS** in production, even temporarily
+
+**RLS Policy Requirements:**
+- Every table must have policies for all operations (SELECT, INSERT, UPDATE, DELETE)
+- Policies must use `auth.uid()` to verify user identity
+- Service role key can bypass RLS (use only server-side)
+- Document all policies in migration files
+
+**Example RLS Policy Pattern:**
+```sql
+-- Users can only access their own records
+create policy "Users can view own jobs"
+  on jobs for select
+  using (auth.uid() = user_id);
+```
 
 See [06-data-model.md](06-data-model.md) for RLS policy patterns.
+See [13-supabase-security.md](13-supabase-security.md) for detailed RLS templates.
 
-### API Route Security
+### Authentication & Password Policies
+
+**Supabase Auth Configuration** (per [Supabase Auth Guide](https://supabase.com/docs/guides/auth/password-security)):
+
+**Password Requirements:**
+- **Minimum length**: 8 characters (enforced in Supabase config)
+- **Complexity**: Require uppercase, lowercase, numbers (configured in `supabase/config.toml`)
+- **Leak detection**: Enable HaveIBeenPwned integration (Supabase feature)
+- **Password reset**: Require email confirmation for password changes
+
+**Multi-Factor Authentication (MFA):**
+- **Organization owners**: MFA required (future enhancement)
+- **User accounts**: MFA optional but recommended
+- **Enforcement**: Configure in Supabase dashboard
+
+**JWT Validation:**
+- **Validate JWT claims** in middleware and API routes
+- **Check expiration**: JWTs expire after configured time (default 1 hour)
+- **Verify signature**: Supabase client handles this automatically
+- **Refresh tokens**: Handle token refresh for long-lived sessions
+
+**API Route Security:**
 
 **Validate user authentication in API routes:**
 
@@ -150,7 +221,16 @@ export async function GET(request: NextRequest) {
   
   if (error || !user) {
     return NextResponse.json(
-      { error: 'Unauthorized' },
+      { error: 'Unauthorized', code: 'UNAUTHORIZED' },
+      { status: 401 }
+    );
+  }
+  
+  // Validate JWT claims
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) {
+    return NextResponse.json(
+      { error: 'Session expired', code: 'SESSION_EXPIRED' },
       { status: 401 }
     );
   }
@@ -158,6 +238,11 @@ export async function GET(request: NextRequest) {
   // Proceed with authenticated request
 }
 ```
+
+**Magic Link & OAuth:**
+- Prefer magic link over email/password when possible (better UX, more secure)
+- Support OAuth providers (Google, GitHub, etc.) for easier signup
+- Configure in Supabase dashboard and document in setup guide
 
 ## Audit Logging
 
@@ -277,6 +362,29 @@ export async function checkRateLimit(userId: string) {
 }
 ```
 
+## Platform Security (Supabase)
+
+### Organization & Project Security
+
+**Supabase Dashboard Security:**
+- **MFA required** for organization owners
+- **SSO enabled** for team access (if available)
+- **IP restrictions** for dashboard access (if needed)
+- **Audit logs** enabled for all admin actions
+
+### Network Security
+
+- **SSL/TLS enforced**: All connections must use HTTPS (Supabase default)
+- **Database connections**: Use connection pooling, restrict direct access
+- **API endpoints**: Validate origin headers, use CORS properly
+
+### Compliance
+
+- **SOC-2 Type 2**: Supabase is compliant (verify current status)
+- **GDPR compliance**: Data residency options, right to deletion
+- **HIPAA**: Available as add-on if handling healthcare data
+- **Data retention**: Configure backup retention policies
+
 ## Security Checklist
 
 Before deploying or merging:
@@ -284,15 +392,28 @@ Before deploying or merging:
 - [ ] No secrets in code or logs
 - [ ] `.env.local` is gitignored
 - [ ] `.env.example` is up to date
-- [ ] RLS policies are enabled and tested
-- [ ] Service keys are server-side only
-- [ ] User inputs are validated
+- [ ] **RLS policies are enabled on ALL user tables and tested**
+- [ ] **Service role key is server-side only (never in client code)**
+- [ ] **Anon key is safe (RLS protects data)**
+- [ ] **Password policies configured in Supabase**
+- [ ] **JWT validation in all protected routes**
+- [ ] User inputs are validated and sanitized
 - [ ] Audit logging is implemented for critical actions
 - [ ] Rate limiting is in place for expensive operations
 - [ ] HTTPS is enforced in production
+- [ ] **MFA enabled for organization owners**
+- [ ] **Backup strategy documented and tested**
+
+## Supabase Security References
+
+- [Supabase Security Guide](https://supabase.com/docs/guides/security)
+- [Supabase Database Security](https://supabase.com/docs/guides/database/secure-data)
+- [Supabase Auth Password Security](https://supabase.com/docs/guides/auth/password-security)
+- [Supabase Platform Security](https://supabase.com/docs/guides/security/platform-security)
 
 ## Related Rules
 
 - See [06-data-model.md](06-data-model.md) for RLS policy patterns
+- See [13-supabase-security.md](13-supabase-security.md) for detailed Supabase security rules
 - See [10-error-handling.md](10-error-handling.md) for secure error messages
 - See [11-api-design.md](11-api-design.md) for API security patterns
