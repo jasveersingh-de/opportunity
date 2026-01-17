@@ -1,91 +1,118 @@
 # Plan Index
 
-Quick reference to all project plans and their purposes.
+Quick reference to all project plans organized by category.
 
-## Master Plan
+## Master Plans
 
-- **[PROJECT-PLAN.md](PROJECT-PLAN.md)** - High-level milestones, timeline, and execution strategy for the MVP (this directory)
+- **[PROJECT-PLAN.md](PROJECT-PLAN.md)** - Master execution plan with high-level milestones
+- **[README.md](README.md)** - Plans directory overview and navigation
 
-## Detailed Implementation Plans
+## Roadmaps
 
-### Active Plans
-
-- **[ui-prototype-plan.md](ui-prototype-plan.md)** - UI prototype with clean architecture approach
-  - **Status:** 🟡 Ready to start
-  - **Purpose:** Build complete UI prototype following clean architecture principles
-  - **Timeline:** 6 weeks
-  - **Phases:** Foundation UI → Job Management → Pipeline → AI Features → Enhanced Features
-
-### Future Plans
-
-- **[backend-integration-plan.md](backend-integration-plan.md)** - Backend services integration (to be created)
-  - **Purpose:** Connect UI prototype to Supabase backend
-  - **Timeline:** 2 weeks (after UI prototype)
-
-- **[ai-features-plan.md](ai-features-plan.md)** - AI features detailed plan (to be created)
-  - **Purpose:** Detailed implementation of AI ranking, CV generation, cover letters
-  - **Timeline:** 2 weeks (after backend integration)
-
-## Analysis & Improvement Plans
-
-### Review & Strategy Documents
-
-- **[WORKSPACE-REVIEW.md](WORKSPACE-REVIEW.md)** - Comprehensive workspace review and documentation strategy
+- **[roadmap/PRODUCT-ROADMAP.md](roadmap/PRODUCT-ROADMAP.md)** - Overall product roadmap (POC → MVP → Full Product)
   - **Status:** ✅ Complete
-  - **Purpose:** Analyze current state, identify gaps, recommend best practices
-  - **Key Topics:** Plans as documentation, ADRs, patterns, searchability
+  - **Purpose:** High-level product development phases
+  - **Timeline:** 17+ weeks
 
-- **[IMPROVEMENT-PLAN.md](IMPROVEMENT-PLAN.md)** - Workspace improvement plan aligned with original vision
-  - **Status:** 🟡 Ready to implement
-  - **Purpose:** Align workspace with original Opportunity.ai Vision PDF and enhance plans
-  - **Key Topics:** Vision alignment, feature gaps, competitive context, documentation enhancement
+- **[roadmap/MVP-ROADMAP.md](roadmap/MVP-ROADMAP.md)** - MVP-specific roadmap
+  - **Status:** ✅ Complete
+  - **Purpose:** 12-week MVP timeline and scope
+  - **Timeline:** 12 weeks
+
+## Feature Plans
+
+Feature-specific plans with POC → MVP → Full Product phases and milestones:
+
+- **[features/01-job-discovery.md](features/01-job-discovery.md)** - AI-powered job discovery
+  - **Status:** 🟡 Ready to start
+  - **POC:** Manual entry, basic list (1-2 weeks)
+  - **MVP:** File upload, AI ranking, filters (4 weeks)
+  - **Full:** Multi-platform, semantic search (ongoing)
+
+- **[features/02-application-materials.md](features/02-application-materials.md)** - CV, cover letter, outreach generation
+  - **Status:** 🟡 Ready to start
+  - **POC:** Basic CV/cover letter generation (1-2 weeks)
+  - **MVP:** Full generation with Outreach Draft Generator (4 weeks)
+  - **Full:** Resume comparison, learning from edits (ongoing)
+
+- **[features/03-pipeline-tracking.md](features/03-pipeline-tracking.md)** - Personal ATS/CRM pipeline
+  - **Status:** 🟡 Ready to start
+  - **POC:** Basic status tracking (1-2 weeks)
+  - **MVP:** Full pipeline with dashboard (4 weeks)
+  - **Full:** AI follow-ups, interview prep (ongoing)
+
+- **[features/04-personalized-insights.md](features/04-personalized-insights.md)** - Skill gap, career insights
+  - **Status:** ⚪ Pending (Phase 2)
+  - **POC:** Resume scoring (1-2 weeks)
+  - **MVP:** Skill gap analysis, recommendations (4 weeks)
+  - **Full:** Career paths, salary insights (ongoing)
+
+- **[features/05-privacy-compliance.md](features/05-privacy-compliance.md)** - GDPR, data control
+  - **Status:** 🟡 In progress
+  - **POC:** Basic export/deletion (1 week)
+  - **MVP:** Full GDPR compliance (3 weeks)
+  - **Full:** Advanced privacy features (ongoing)
+
+## Architecture Decision Records (ADRs)
+
+- **[adr/001-ui-first-approach.md](adr/001-ui-first-approach.md)** - UI-first development decision
+- **[adr/002-clean-architecture.md](adr/002-clean-architecture.md)** - Clean architecture with progressive enhancement
+- **[adr/003-linkedin-integration.md](adr/003-linkedin-integration.md)** - LinkedIn integration strategy
+- **[adr/004-ai-prompt-strategy.md](adr/004-ai-prompt-strategy.md)** - AI prompt versioning strategy
+
+## Implementation Patterns
+
+- **[patterns/component-patterns.md](patterns/component-patterns.md)** - Component patterns (presentation, container, server)
+- **[patterns/service-patterns.md](patterns/service-patterns.md)** - Service layer patterns
+- **[patterns/ai-integration-patterns.md](patterns/ai-integration-patterns.md)** - AI integration patterns
+
+## Implementation Plans
+
+- **[implementation/ui-prototype.md](implementation/ui-prototype.md)** - UI prototype detailed implementation
+  - **Status:** 🟡 Ready to start
+  - **Purpose:** Step-by-step UI prototype implementation
+  - **Timeline:** 6 weeks
+
+- **implementation/backend-integration.md** - Backend integration (to be created)
+- **implementation/ai-features.md** - AI features implementation (to be created)
+
+## Analysis & Strategy
+
+- **[WORKSPACE-REVIEW.md](WORKSPACE-REVIEW.md)** - Workspace review and documentation strategy
+  - **Status:** ✅ Complete
+  - **Purpose:** Analysis of current state and best practices
+
+- **[IMPROVEMENT-PLAN.md](IMPROVEMENT-PLAN.md)** - Workspace improvement plan
+  - **Status:** ✅ Complete (executed)
+  - **Purpose:** Improvement strategy aligned with original vision
 
 ## Plan Status Legend
 
 - 🟢 **Complete** - All tasks finished
-- 🟡 **In Progress** - Currently working on
+- 🟡 **In Progress / Ready** - Currently working on or ready to start
 - ⚪ **Pending** - Not started yet
 - 🔴 **Blocked** - Waiting on dependencies
 
-## How to Use Plans
+## Quick Navigation
 
-### When Starting a New Phase
+**Starting development?**
+→ See [roadmap/MVP-ROADMAP.md](roadmap/MVP-ROADMAP.md) for MVP timeline
 
-1. Open the relevant plan in this directory (`.cursor/plans/`)
-2. Review tasks and dependencies
-3. Update status in plan
-4. Reference plan in Cursor chat
+**Working on a feature?**
+→ See [features/](features/) for feature plans with POC/MVP/milestones
 
-### When Completing Tasks
+**Need architecture context?**
+→ See [adr/](adr/) for architecture decisions
 
-1. Mark tasks complete in plan
-2. Update [PROJECT-PLAN.md](PROJECT-PLAN.md) milestone status
-3. Update this index if needed
-4. Commit plan updates with code changes
+**Looking for code patterns?**
+→ See [patterns/](patterns/) for implementation patterns
 
-### When Creating New Plans
-
-1. Create new plan in this directory (`.cursor/plans/`)
-2. Add entry to this index
-3. Reference in [PROJECT-PLAN.md](PROJECT-PLAN.md) if major phase
-4. Update [.cursor/rules/00-operating-system.md](../rules/00-operating-system.md) if needed
-
-## Plan References in Code
-
-When working on features, reference plans in code comments:
-
-```typescript
-/**
- * Job Card Component
- * 
- * Part of UI Prototype Phase 2: Job Management UI
- * See: .cursor/plans/ui-prototype-plan.md#phase-2
- */
-export function JobCard() { ... }
-```
+**Detailed implementation?**
+→ See [implementation/](implementation/) for step-by-step guides
 
 ## Related Documentation
 
-- See [PROJECT-PLAN.md](PROJECT-PLAN.md) for high-level milestones (this directory)
-- See [.cursor/rules/00-operating-system.md](../rules/00-operating-system.md) for plan management workflow
-- See [docs/SETUP.md](../../docs/SETUP.md) for development setup
+- **Product Vision**: [VISION.md](../../VISION.md)
+- **Technical Spec**: [TECH-SPEC.md](../../TECH-SPEC.md)
+- **Development Rules**: [.cursor/rules/](../rules/)
+- **Setup Guide**: [docs/SETUP.md](../../docs/SETUP.md)

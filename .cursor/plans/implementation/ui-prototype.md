@@ -1,4 +1,25 @@
-# UI Prototype Plan: Clean Architecture Approach
+# UI Prototype Implementation Plan
+
+## Vision Alignment
+
+This plan implements the UI foundation for all MVP features from the [original Opportunity.ai Vision PDF](file://Opportunity.ai%20Vision.pdf):
+
+- **AI-Powered Job Discovery**: UI for job ingestion, list, and ranking display
+- **Tailored Application Materials**: UI for CV, cover letter, and outreach draft generation
+- **Job Application Tracking**: UI for pipeline tracker (personal ATS/CRM)
+- **User Control & Privacy**: UI for privacy settings and data control
+
+**Competitive Context:** This UI-first approach enables faster iteration and better UX than competitors (Teal, AIApply) who often have fragmented interfaces.
+
+## Architecture Decision
+
+**ADR Reference:** [ADR-001: UI-First Development Approach](../adr/001-ui-first-approach.md)
+
+**Rationale:** Build UI prototype first with mock data to:
+- Get faster UX feedback
+- Validate product concept early
+- Enable parallel development
+- Maintain clean architecture separation
 
 ## Overview
 
@@ -97,12 +118,23 @@ lib/
 
 **Goal:** Basic UI structure with presentation layer only
 
+**Why:** A consistent design system ensures UI consistency, faster development, and better UX. shadcn/ui provides accessible, customizable components built on Radix UI.
+
+**Decision:** We chose shadcn/ui over other options because:
+- Built on Radix UI (accessibility-first)
+- Uses Tailwind CSS (already in stack)
+- Copy-paste components (no dependency bloat)
+- Fully customizable
+
 #### 1.1 Design System Setup
 
-- [ ] Install shadcn/ui components
+- [ ] Install shadcn/ui components: `npx shadcn-ui@latest init`
 - [ ] Create design tokens (colors, typography, spacing)
 - [ ] Set up Tailwind theme configuration
 - [ ] Create base UI primitives (Button, Input, Card, Badge)
+- [ ] Document component usage patterns
+
+**Reference:** See [shadcn/ui docs](https://ui.shadcn.com) for component patterns
 
 #### 1.2 Layout Components
 
@@ -558,6 +590,23 @@ lib/
 4. Enhance architecture progressively
 5. Test each phase before moving forward
 
-See [PROJECT-PLAN.md](PROJECT-PLAN.md) for feature implementation details.
+## Related Documentation
 
-See [.cursor/rules/08-ui-ux.md](../rules/08-ui-ux.md) for UI/UX guidelines.
+**Planning:**
+- [PROJECT-PLAN.md](../PROJECT-PLAN.md) - Master execution plan
+- [roadmap/MVP-ROADMAP.md](../roadmap/MVP-ROADMAP.md) - MVP roadmap
+- [features/](../features/) - Feature-specific plans with POC/MVP
+
+**Architecture:**
+- [ADR-001: UI-First Approach](../adr/001-ui-first-approach.md) - Architecture decision
+- [ADR-002: Clean Architecture](../adr/002-clean-architecture.md) - Architecture pattern
+- [.cursor/rules/02-architecture.md](../../rules/02-architecture.md) - Architecture rules
+
+**Patterns:**
+- [patterns/component-patterns.md](../patterns/component-patterns.md) - Component patterns
+- [patterns/service-patterns.md](../patterns/service-patterns.md) - Service patterns
+- [.cursor/rules/08-ui-ux.md](../../rules/08-ui-ux.md) - UI/UX guidelines
+
+**Vision:**
+- [Original Vision PDF](file://Opportunity.ai%20Vision.pdf) - Original comprehensive vision
+- [VISION.md](../../VISION.md) - Current product vision
