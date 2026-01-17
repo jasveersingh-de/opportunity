@@ -4,11 +4,14 @@ This directory contains GitHub Actions workflows for continuous integration and 
 
 ## Workflows
 
+All workflows use **mise** (via `jdx/mise-action@v3`) to manage tool versions, ensuring consistency between local development and CI environments. mise automatically reads `.mise.toml` to install the correct versions of Node.js and pnpm.
+
 ### 1. PR Checks (`pr-checks.yml`)
 
 **Triggers:** Pull requests to `main` branch
 
 **What it does:**
+- Sets up mise and installs tools from `.mise.toml`
 - Runs linter (`pnpm lint`)
 - Runs type checking (`pnpm typecheck`)
 - Builds the application (`pnpm build`)
@@ -103,9 +106,13 @@ You can check workflow status:
 
 ## Local Testing
 
-To test workflows locally before pushing:
+All workflows use **mise** to manage tool versions, matching your local development environment. To test workflows locally:
 
 ```bash
+# Ensure mise is set up (it activates automatically when you cd into the project)
+cd /path/to/opportunity.ai
+mise install
+
 # Test build locally
 pnpm build
 
@@ -116,13 +123,16 @@ pnpm lint
 pnpm typecheck
 ```
 
+**Note:** The CI environment uses the same tool versions defined in `.mise.toml`, ensuring consistency between local and CI.
+
 ## Troubleshooting
 
 ### Build Fails in CI
 
 - Check that all environment variables are set (even dummy values work for build)
 - Verify `pnpm-lock.yaml` is committed
-- Check Node.js version matches (should be 20)
+- Check that `.mise.toml` has correct tool versions (mise installs these automatically)
+- Verify tool versions match between local and CI (mise ensures this)
 
 ### Deployment Fails
 
