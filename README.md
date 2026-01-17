@@ -23,11 +23,26 @@ The platform acts as a "job search copilot," combining job aggregation, AI-drive
 - **AI**: OpenAI API (server-side)
 - **Tool Management**: mise (polyglot tool version manager)
 
+## Project Status
+
+**Current Phase**: Foundation Setup
+
+- ✅ Cursor rules and agent configuration
+- ✅ Database schema and migrations
+- ✅ Supabase setup and configuration
+- ✅ Documentation and guides
+- ⏳ Next: Initialize Next.js application
+- ⏳ Next: Implement core features
+
+See [VISION.md](VISION.md) for product vision and roadmap.
+
 ## Prerequisites
 
 - [mise](https://mise.jdx.dev) - Tool version manager (replaces nvm, asdf, etc.)
-- Supabase account (for database)
-- OpenAI API key (for AI features)
+- [Supabase account](https://supabase.com) - For database and authentication
+- [Supabase CLI](https://supabase.com/docs/reference/cli) - For local development
+- OpenAI API key - For AI features
+- Node.js and pnpm (managed via mise)
 
 ## Development Setup
 
@@ -77,7 +92,31 @@ mise install
 pnpm install
 ```
 
-### 5. Configure Environment Variables
+### 5. Set Up Supabase
+
+**For local development:**
+
+```bash
+# Install Supabase CLI (if not using mise)
+mise install supabase
+
+# Start local Supabase
+supabase start
+
+# Apply migrations
+supabase db reset
+
+# Generate TypeScript types
+supabase gen types typescript --local > lib/db/types.ts
+```
+
+**For remote Supabase:**
+
+1. Create a Supabase project at [supabase.com](https://supabase.com)
+2. Get your project credentials from Project Settings → API
+3. See [docs/supabase-setup.md](docs/supabase-setup.md) for detailed setup
+
+### 6. Configure Environment Variables
 
 Create a copy of `.env.example` as `.env.local`:
 
@@ -87,17 +126,29 @@ cp .env.example .env.local
 
 Then open `.env.local` and fill in the required keys:
 
-- **Supabase URL and Anon Key**: From your Supabase project settings
-- **Supabase Service Role Key**: For server-side operations (optional for dev)
-- **OpenAI API Key**: For AI features
-
+**For local development:**
 ```bash
-# .env.local
+# Local Supabase (from `supabase start` output)
+NEXT_PUBLIC_SUPABASE_URL=http://localhost:54321
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<local-anon-key>
+SUPABASE_SERVICE_ROLE_KEY=<local-service-key>
+
+# OpenAI API Key
+OPENAI_API_KEY=sk-...
+```
+
+**For remote Supabase:**
+```bash
+# Remote Supabase (from project settings)
 NEXT_PUBLIC_SUPABASE_URL=https://xxx.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...
-SUPABASE_SERVICE_ROLE_KEY=eyJ...  # Server-side only
-OPENAI_API_KEY=sk-...              # Server-side only
+SUPABASE_SERVICE_ROLE_KEY=eyJ...  # Server-side only, keep secret!
+
+# OpenAI API Key
+OPENAI_API_KEY=sk-...
 ```
+
+See [.env.example](.env.example) for all required variables.
 
 ### 6. Run Database Migrations
 
@@ -208,17 +259,36 @@ See [.cursor/rules/09-git-workflow.md](.cursor/rules/09-git-workflow.md) for det
 
 ## Documentation
 
-- **Vision**: See `VISION.md` for product vision and goals
-- **Tech Spec**: See `TECH-SPEC.md` for detailed technical design
+### Core Documentation
+
+- **Vision**: See [VISION.md](VISION.md) for product vision and goals
+- **Tech Spec**: See [TECH-SPEC.md](TECH-SPEC.md) for detailed technical design
 - **Cursor Rules**: See [.cursor/rules/](.cursor/rules/) for development conventions
 - **Subagents**: See [AGENTS.md](AGENTS.md) for agent responsibilities
 
+### Setup Guides
+
+- **Supabase Setup**: See [docs/supabase-setup.md](docs/supabase-setup.md) for complete Supabase setup guide
+- **Environment Management**: See [docs/environments.md](docs/environments.md) for environment separation strategy
+
+### Supabase Resources
+
+- [Supabase Documentation](https://supabase.com/docs)
+- [Supabase CLI Reference](https://supabase.com/docs/reference/cli)
+- [Supabase Auth Guide](https://supabase.com/docs/guides/auth)
+- [Supabase Database Security](https://supabase.com/docs/guides/database/secure-data)
+
 ## Security & Privacy
 
-- Never commit secrets or API keys
-- All AI operations happen server-side only
-- User data is protected with Row Level Security (RLS)
-- See [.cursor/rules/05-security-and-compliance.md](.cursor/rules/05-security-and-compliance.md) for security guidelines
+- **Never commit secrets or API keys** - Use `.env.local` (gitignored)
+- **All AI operations happen server-side only** - Never expose API keys to client
+- **User data is protected with Row Level Security (RLS)** - All tables have RLS enabled
+- **Service role key is server-side only** - Never expose to browser
+- **Password policies enforced** - Strong passwords required
+- **Audit logging** - All important actions are logged
+
+See [.cursor/rules/05-security-and-compliance.md](.cursor/rules/05-security-and-compliance.md) for security guidelines.
+See [.cursor/rules/13-supabase-security.md](.cursor/rules/13-supabase-security.md) for Supabase-specific security patterns.
 
 ## License
 
