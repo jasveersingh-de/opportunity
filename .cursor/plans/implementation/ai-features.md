@@ -1,3 +1,12 @@
+---
+title: Implementation Plan - AI Features
+type: implementation-plan
+status: pending
+phase: 3
+tags: [ai, openai, ranking, generation, prompts]
+last-updated: 2024-01-15
+---
+
 # AI Features Implementation Plan
 
 ## Vision Alignment

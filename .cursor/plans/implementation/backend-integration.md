@@ -1,3 +1,12 @@
+---
+title: Implementation Plan - Backend Integration
+type: implementation-plan
+status: pending
+phase: 2
+tags: [backend, supabase, integration, database]
+last-updated: 2024-01-15
+---
+
 # Backend Integration Implementation Plan
 
 ## Vision Alignment

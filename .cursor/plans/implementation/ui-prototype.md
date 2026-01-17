@@ -1,3 +1,12 @@
+---
+title: Implementation Plan - UI Prototype
+type: implementation-plan
+status: ready
+phase: 1
+tags: [ui, frontend, clean-architecture, nextjs, prototype]
+last-updated: 2024-01-15
+---
+
 # UI Prototype Implementation Plan
 
 ## Vision Alignment

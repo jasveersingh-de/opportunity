@@ -1,3 +1,11 @@
+---
+title: MVP Roadmap - Opportunity.ai
+type: roadmap
+status: active
+tags: [mvp, roadmap, timeline, 12-weeks]
+last-updated: 2024-01-15
+---
+
 # MVP Roadmap: Opportunity.ai
 
 ## Overview
