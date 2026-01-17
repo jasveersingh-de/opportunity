@@ -56,8 +56,7 @@ This project follows a **UI-first development approach**:
 
 **See detailed plans:**
 - [PLAN-INDEX.md](PLAN-INDEX.md) - Index of all plans
-- [roadmap/PRODUCT-ROADMAP.md](roadmap/PRODUCT-ROADMAP.md) - Product roadmap
-- [roadmap/MVP-ROADMAP.md](roadmap/MVP-ROADMAP.md) - MVP roadmap
+- [roadmap/MVP-ROADMAP.md](roadmap/MVP-ROADMAP.md) - MVP roadmap and scope
 - [features/](features/) - Feature plans with POC/MVP/milestones
 - [implementation/ui-prototype.md](implementation/ui-prototype.md) - UI prototype implementation
 
@@ -534,10 +533,10 @@ This project follows a **UI-first development approach**:
 4. **Commit incrementally:** Small, reviewable commits
 5. **Test continuously:** Don't accumulate technical debt
 
-## Plan Management
+## Related Documentation
 
-- **Master Plan:** [PROJECT-PLAN.md](PROJECT-PLAN.md) (this file)
 - **Plan Index:** [PLAN-INDEX.md](PLAN-INDEX.md) - Quick reference to all plans
-- **UI Prototype Plan:** [ui-prototype-plan.md](ui-prototype-plan.md) - Detailed UI implementation
-- **Development Guidelines:** [.cursor/rules/](../rules/) - Cursor rules for development
+- **MVP Roadmap:** [roadmap/MVP-ROADMAP.md](roadmap/MVP-ROADMAP.md) - MVP scope and timeline
+- **Implementation Plans:** [implementation/](implementation/) - Step-by-step guides
+- **Development Rules:** [.cursor/rules/](../rules/) - Cursor rules for development
 - **Setup Guide:** [docs/SETUP.md](../../docs/SETUP.md) - Development environment setup

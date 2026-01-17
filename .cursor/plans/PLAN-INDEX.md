@@ -83,15 +83,6 @@ Feature-specific plans with POC → MVP → Full Product phases and milestones:
 - **implementation/backend-integration.md** - Backend integration (to be created)
 - **implementation/ai-features.md** - AI features implementation (to be created)
 
-## Analysis & Strategy
-
-- **[WORKSPACE-REVIEW.md](WORKSPACE-REVIEW.md)** - Workspace review and documentation strategy
-  - **Status:** ✅ Complete
-  - **Purpose:** Analysis of current state and best practices
-
-- **[IMPROVEMENT-PLAN.md](IMPROVEMENT-PLAN.md)** - Workspace improvement plan
-  - **Status:** ✅ Complete (executed)
-  - **Purpose:** Improvement strategy aligned with original vision
 
 ## Plan Status Legend
 
