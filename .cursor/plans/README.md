@@ -116,6 +116,22 @@ All plans align with the original [Opportunity.ai Vision PDF](file://Opportunity
 4. Add vision alignment section
 5. Update this README
 
+## Documentation Navigation
+
+**Quick Navigation:**
+- [DOCUMENTATION-NAVIGATION.md](DOCUMENTATION-NAVIGATION.md) - Comprehensive navigation guide
+
+**Start Here:**
+- [README.md](../../README.md) - Project overview
+- [VISION.md](../../VISION.md) - Product vision
+- [roadmap/MVP-ROADMAP.md](roadmap/MVP-ROADMAP.md) - MVP roadmap
+
+**Feature Development:**
+- [features/](features/) - Feature plans with POC/MVP/milestones
+- [implementation/](implementation/) - Implementation guides
+- [adr/](adr/) - Architecture decisions
+- [patterns/](patterns/) - Code patterns
+
 ## Related Documentation
 
 - **Product Vision**: [VISION.md](../../VISION.md)

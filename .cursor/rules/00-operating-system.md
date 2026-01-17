@@ -164,6 +164,72 @@ Before marking a task complete, verify:
   - Run `mise install` to install tools from `.mise.toml`
   - Verify with `mise ls` and `node --version`
 
+## Project Plans
+
+This project uses a structured planning system for organized development:
+
+### Plan Structure
+
+- **[.cursor/plans/PROJECT-PLAN.md](../plans/PROJECT-PLAN.md)** - Master plan with high-level milestones and timeline
+- **[.cursor/plans/PLAN-INDEX.md](../plans/PLAN-INDEX.md)** - Index of all detailed plans
+- **[.cursor/plans/](../plans/)** - All project plans (master plan, index, and detailed plans)
+
+### Current Active Plan
+
+**Phase 1: UI Prototype** - See [.cursor/plans/ui-prototype-plan.md](../plans/ui-prototype-plan.md)
+
+**All plans are located in:** `.cursor/plans/`
+
+### Plan Management Workflow
+
+**When Starting a New Phase:**
+1. Open the relevant plan in `.cursor/plans/`
+2. Review tasks and dependencies
+3. Update status in plan
+4. Reference plan in Cursor chat
+
+**When Completing Tasks:**
+1. Mark tasks complete in plan
+2. Update `.cursor/plans/PROJECT-PLAN.md` milestone status
+3. Update `.cursor/plans/PLAN-INDEX.md` if needed
+4. Commit plan updates with code changes
+
+**When Creating New Plans:**
+1. Create new plan in `.cursor/plans/`
+2. Add entry to `.cursor/plans/PLAN-INDEX.md`
+3. Reference in `.cursor/plans/PROJECT-PLAN.md` if major phase
+4. Update this file if needed
+
+### Using Plans in Code
+
+Reference plans in code comments for context:
+
+```typescript
+/**
+ * Job Card Component
+ * 
+ * Part of UI Prototype Phase 2: Job Management UI
+ * See: .cursor/plans/ui-prototype-plan.md#phase-2
+ * All plans: .cursor/plans/
+ */
+export function JobCard() { ... }
+```
+
+### Plan References in Commit Messages
+
+Include plan references in commit messages:
+
+```bash
+feat(ui): add JobCard component
+
+Implements Phase 2 of UI prototype plan
+See: .cursor/plans/ui-prototype-plan.md
+
+- Created JobCard presentation component
+- Added JobList container component
+- Connected to mock job service
+```
+
 ## Related Rules
 
 - See [01-product-scope.md](01-product-scope.md) for product boundaries
