@@ -92,86 +92,22 @@ mise install
 pnpm install
 ```
 
-### 5. Set Up Supabase
+### 5. Complete Setup
 
-**For local development:**
+**See [docs/SETUP.md](docs/SETUP.md) for complete setup instructions**, including:
+- Account creation (Supabase, LinkedIn, OpenAI)
+- Automated setup scripts
+- OAuth configuration
+- Environment management
 
+**Quick start:**
 ```bash
-# Install Supabase CLI (if not using mise)
-mise install supabase
+# Run setup script (after creating accounts)
+./scripts/setup.sh
 
-# Start local Supabase
-supabase start
-
-# Apply migrations
-supabase db reset
-
-# Generate TypeScript types
-supabase gen types typescript --local > lib/db/types.ts
-```
-
-**For remote Supabase:**
-
-1. Create a Supabase project at [supabase.com](https://supabase.com)
-2. Get your project credentials from Project Settings → API
-3. See [docs/supabase-setup.md](docs/supabase-setup.md) for detailed setup
-
-### 6. Configure Environment Variables
-
-Create a copy of `.env.example` as `.env.local`:
-
-```bash
-cp .env.example .env.local
-```
-
-Then open `.env.local` and fill in the required keys:
-
-**For local development:**
-```bash
-# Local Supabase (from `supabase start` output)
-NEXT_PUBLIC_SUPABASE_URL=http://localhost:54321
-NEXT_PUBLIC_SUPABASE_ANON_KEY=<local-anon-key>
-SUPABASE_SERVICE_ROLE_KEY=<local-service-key>
-
-# OpenAI API Key
-OPENAI_API_KEY=sk-...
-```
-
-**For remote Supabase:**
-```bash
-# Remote Supabase (from project settings)
-NEXT_PUBLIC_SUPABASE_URL=https://xxx.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...
-SUPABASE_SERVICE_ROLE_KEY=eyJ...  # Server-side only, keep secret!
-
-# OpenAI API Key
-OPENAI_API_KEY=sk-...
-```
-
-See [.env.example](.env.example) for all required variables.
-
-### 6. Run Database Migrations
-
-If using Supabase CLI for local development:
-
-```bash
-# Start local Supabase
-pnpm supabase start
-
-# Apply migrations
-pnpm supabase db reset
-
-# Generate TypeScript types
-pnpm supabase gen types typescript --local > lib/db/types.ts
-```
-
-### 7. Start the Development Server
-
-```bash
+# Start development
 pnpm dev
 ```
-
-The app will be available at `http://localhost:3000`.
 
 ## Repository Structure
 
@@ -266,10 +202,9 @@ See [.cursor/rules/09-git-workflow.md](.cursor/rules/09-git-workflow.md) for det
 - **Cursor Rules**: See [.cursor/rules/](.cursor/rules/) for development conventions
 - **Subagents**: See [AGENTS.md](AGENTS.md) for agent responsibilities
 
-### Setup Guides
+### Setup
 
-- **Supabase Setup**: See [docs/supabase-setup.md](docs/supabase-setup.md) for complete Supabase setup guide
-- **Environment Management**: See [docs/environments.md](docs/environments.md) for environment separation strategy
+- **Complete Setup Guide**: See [docs/SETUP.md](docs/SETUP.md) for account creation, configuration, and automation
 
 ### Supabase Resources
 

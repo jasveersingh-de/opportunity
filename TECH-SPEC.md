@@ -275,4 +275,4 @@ See [.cursor/rules/12-performance.md](.cursor/rules/12-performance.md) for perfo
 - See [VISION.md](VISION.md) for product vision
 - See [README.md](README.md) for setup instructions
 - See [.cursor/rules/](.cursor/rules/) for development conventions
-- See [docs/supabase-setup.md](docs/supabase-setup.md) for Supabase setup guide
+- See [docs/SETUP.md](docs/SETUP.md) for complete setup guide
