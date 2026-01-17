@@ -61,8 +61,8 @@ brew install mise
 ### 2. Clone the Repository
 
 ```bash
-git clone https://github.com/YourUsername/opportunity.ai.git
-cd opportunity.ai
+git clone https://github.com/jasveersingh-de/opportunity.git
+cd opportunity
 ```
 
 ### 3. Tool Version Setup
@@ -179,7 +179,13 @@ We welcome contributions! Please:
 1. Read the [Vision document](VISION.md) to understand product goals
 2. Check [.cursor/rules/](.cursor/rules/) for coding standards and conventions
 3. Follow the git workflow in [.cursor/rules/09-git-workflow.md](.cursor/rules/09-git-workflow.md)
-4. Ensure all checks pass before submitting PRs
+4. Use the appropriate PR template when creating pull requests:
+   - Default: `.github/pull_request_template.md`
+   - Feature: `.github/PULL_REQUEST_TEMPLATE/feature.md`
+   - Bug fix: `.github/PULL_REQUEST_TEMPLATE/bugfix.md`
+   - Database: `.github/PULL_REQUEST_TEMPLATE/database.md`
+   - Documentation: `.github/PULL_REQUEST_TEMPLATE/documentation.md`
+5. Ensure all checks pass before submitting PRs
 
 ### Commit Message Format
 
@@ -198,7 +204,6 @@ See [.cursor/rules/09-git-workflow.md](.cursor/rules/09-git-workflow.md) for det
 ### Core Documentation
 
 - **Vision**: See [VISION.md](VISION.md) for product vision and goals
-- **Tech Spec**: See [TECH-SPEC.md](TECH-SPEC.md) for detailed technical design
 - **Cursor Rules**: See [.cursor/rules/](.cursor/rules/) for development conventions
 - **Subagents**: See [AGENTS.md](AGENTS.md) for agent responsibilities
 
@@ -227,7 +232,14 @@ See [.cursor/rules/13-supabase-security.md](.cursor/rules/13-supabase-security.m
 
 ## License
 
-[Specify your license here]
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Production Status
+
+**Current Phase:** Foundation Setup  
+**Production Ready:** ⚠️ Not yet - Application code implementation is in progress.
+
+This repository contains the foundation, documentation, and planning for Opportunity.ai.
 
 ---
 

@@ -2,6 +2,8 @@
 
 This repository uses specialized subagent responsibilities when acting agentically. Each subagent has a specific role and set of responsibilities.
 
+**Note:** All commands assume mise has set up the correct tool versions (Node.js 20.18.0, pnpm 9.15.0) automatically when entering the project directory. CI workflows also use mise for consistency.
+
 ## test-runner
 
 **Responsibilities:**
@@ -20,7 +22,7 @@ This repository uses specialized subagent responsibilities when acting agentical
 
 **Execution Pattern:**
 ```bash
-# After any code change
+# After any code change (mise ensures correct tool versions)
 pnpm typecheck && pnpm lint && pnpm test
 
 # If failures occur
@@ -29,6 +31,9 @@ pnpm typecheck && pnpm lint && pnpm test
 3. Fix code (if unintentional change) OR update tests (if intentional change)
 4. Re-run checks
 5. Report results
+
+# Verify tool versions if needed
+mise ls  # Should show node 20.18.0 and pnpm 9.15.0
 ```
 
 **Success Criteria:**
@@ -107,10 +112,11 @@ grep -r "console.log.*user\|console.log.*password" --exclude-dir=node_modules .
 
 **Execution Pattern:**
 ```bash
-# Run type checking
+# Run type checking (mise ensures correct Node.js version)
 pnpm typecheck
 
 # If schema changed, regenerate types
+# Ensure Supabase CLI is available (via mise or pnpm)
 pnpm supabase gen types typescript --local > lib/db/types.ts
 ```
 
@@ -129,12 +135,16 @@ pnpm supabase gen types typescript --local > lib/db/types.ts
 
 **Execution Pattern:**
 ```bash
-# Create migration
+# Create migration (ensure Supabase CLI is available)
 pnpm supabase migration new add_column_to_table
 
 # Edit migration file
 # Test migration
 pnpm supabase db reset
+
+# Verify migration works and regenerate types
+pnpm supabase gen types typescript --local > lib/db/types.ts
+pnpm typecheck  # Verify types are correct
 ```
 
 **Success Criteria:**
@@ -173,10 +183,20 @@ await logAction({
 - Versions logged in audit logs
 - Prompt changes are testable
 
+## Agentic Workflow
+
+**All subagents should:**
+1. **Be proactive** - Run checks automatically, don't wait for failures
+2. **Use mise** - Trust that tool versions are correct (mise manages them)
+3. **Follow the work loop** - Clarify → Plan → Implement → Verify → Summarize
+4. **Use PR templates** - When creating PRs, use appropriate templates from `.github/PULL_REQUEST_TEMPLATE/`
+5. **Verify before claiming done** - Always run `pnpm typecheck && pnpm lint` before marking tasks complete
+
 ## Related Rules
 
-- See [.cursor/rules/00-operating-system.md](.cursor/rules/00-operating-system.md) for work loop
+- See [.cursor/rules/00-operating-system.md](.cursor/rules/00-operating-system.md) for work loop and mise setup
 - See [.cursor/rules/04-testing-and-ci.md](.cursor/rules/04-testing-and-ci.md) for testing requirements
 - See [.cursor/rules/05-security-and-compliance.md](.cursor/rules/05-security-and-compliance.md) for security rules
 - See [.cursor/rules/06-data-model.md](.cursor/rules/06-data-model.md) for migration workflow
 - See [.cursor/rules/07-ai-integration.md](.cursor/rules/07-ai-integration.md) for prompt management
+- See [.cursor/rules/09-git-workflow.md](.cursor/rules/09-git-workflow.md) for PR templates and commit conventions
