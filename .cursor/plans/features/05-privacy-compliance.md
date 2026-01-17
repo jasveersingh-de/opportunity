@@ -1,3 +1,12 @@
+---
+title: Feature Plan - User Control & Privacy Compliance
+type: feature-plan
+status: in-progress
+phase: poc
+tags: [privacy, gdpr, data-control, compliance]
+last-updated: 2024-01-15
+---
+
 # Feature: User Control & Privacy Compliance
 
 ## Vision Alignment

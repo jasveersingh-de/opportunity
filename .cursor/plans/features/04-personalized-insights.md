@@ -1,3 +1,12 @@
+---
+title: Feature Plan - Personalized Insights & Skill Guidance
+type: feature-plan
+status: pending
+phase: mvp-phase2
+tags: [insights, resume-scoring, skill-gap, career-guidance]
+last-updated: 2024-01-15
+---
+
 # Feature: Personalized Insights & Skill Guidance
 
 ## Vision Alignment

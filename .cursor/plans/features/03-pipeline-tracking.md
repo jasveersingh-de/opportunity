@@ -1,3 +1,12 @@
+---
+title: Feature Plan - Job Application Pipeline Tracking
+type: feature-plan
+status: ready
+phase: poc
+tags: [pipeline, tracking, ats, crm, applications]
+last-updated: 2024-01-15
+---
+
 # Feature: Job Application Pipeline Tracking
 
 ## Vision Alignment
